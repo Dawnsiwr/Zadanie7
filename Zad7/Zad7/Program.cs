@@ -23,7 +23,8 @@ namespace Zad7
             for (int i = 0; i < Students.Length; i++)
             {
                 StudentsCopy.Add((Student)Students[i].Clone());
-                Students[i] = null;
+
+                Array.Clear(Students[i].Marks, 0, Students[i].Marks.Length);
             }
 
             StudentsCopy.Sort();
@@ -32,6 +33,7 @@ namespace Zad7
             {
                 s.Print();
             }
+
 
         }
     }
