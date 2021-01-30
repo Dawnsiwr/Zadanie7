@@ -34,6 +34,8 @@ namespace Zad7
                 s.Print();
             }
 
+        
+
 
         }
     }

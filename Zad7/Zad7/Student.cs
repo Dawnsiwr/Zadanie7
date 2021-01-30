@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Zad7
-{
+{   [Serializable]
     class Student : ICloneable, IComparable<Student>, IPrintable<Student>
     {
         public static int ID_COUTER = 1;
@@ -31,13 +34,17 @@ namespace Zad7
 
         public object Clone()
         {
-            var clone = new Student(this);
-            
-            return clone;
-
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream;
+            using (stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, this);
+                stream.Seek(0, SeekOrigin.Begin);
+                return (Student)formatter.Deserialize(stream);
+            }
         }
 
-      
+       
 
         public int CompareTo([AllowNull] Student other)
         {
